@@ -1,0 +1,119 @@
+
+/* Styles */
+
+body, html {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+/* Add new customer */
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+}
+
+/* Content  table */
+.content {
+    position: relative;
+    border: 1px solid  #80868B;
+    padding: 40px;
+    border-radius: 4px;
+    z-index: 1;
+}
+
+/* Hidden btn close input search */
+[type="search"]::-webkit-search-cancel-button {
+    display: none; /*Ocultamos la UI de Webkit*/
+}
+input[type=search]::-ms-clear {
+display: none; width : 0; height: 0; /*Ocultamos la UI de IE */
+}
+
+.title {
+    position: absolute;
+    top: -.7rem;
+    background: #f8fafc;
+    font-weight: 800;
+    z-index: 10;
+}
+
+/* Table */
+tr td{
+    padding: 5px !important;
+    margin: 5px !important;
+}
+
+.btn-actions {
+    padding: 2 !important;
+}
+
+/* Modal */
+
+.title_modal {
+    position: absolute;
+    top: -.7rem;
+    background: #adcce9;
+    color: rgb(68, 66, 66);
+    border-radius: 4px;
+    font-weight: 700;
+    padding: 8px;
+    margin-left: 15px;
+    z-index: 10;
+}
+
+/* Imputs modal */
+
+.col-form-label {
+    font-weight: 500;
+}
+
+/* Spinner */
+.div_loader{
+    z-index: 100; 
+    background-color: rgba(224, 209, 209, 0.281); 
+    position: absolute; 
+    height: 100vh; 
+    width: 100%; 
+    overflow: hidden;
+}
+
+
+.loader{
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 40%;
+    right: 50%;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
