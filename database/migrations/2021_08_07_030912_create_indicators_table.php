@@ -15,12 +15,12 @@ class CreateIndicatorsTable extends Migration
     {
         Schema::create('indicators', function (Blueprint $table) {
             $table->id();
-            $table->integer('idType')->unsigned();
+            $table->integer('idCategory')->unsigned();
             $table->char('description', 100)->nullable($value = false);
             $table->tinyInteger('score')->nullable($value = false);
             $table->boolean('status')->nullable($value = false);
             
-            $table->foreign('idType')->references('id')->on('types');
+            $table->foreign('idCategory')->references('id')->on('categories');
 
             $table->timestamps();
         });

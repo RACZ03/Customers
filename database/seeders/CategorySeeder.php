@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class TypeSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,13 +15,13 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('types')->insert([
+        DB::table('categories')->insert([
             'name' => 'Presentación Personal, Porte y Aspecto y Puesto de Trabajo',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
-        DB::table('types')->insert([
+        DB::table('categories')->insert([
             'name' => 'Asistencia y Puntualidad',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

@@ -16,7 +16,7 @@ class IndicatorSeeder extends Seeder
     public function run()
     {
         DB::table('indicators')->insert([
-            'idType' => 1,
+            'idCategory' => 1,
             'description' => 'Pantalón limpio y planchado',
             'score' => 1,
             'status' => 1,
@@ -24,7 +24,7 @@ class IndicatorSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('indicators')->insert([
-            'idType' => 1,
+            'idCategory' => 1,
             'description' => 'Uñas (limpias, bien cuidadas y no tan largas',
             'score' => 1,
             'status' => 1,
@@ -32,7 +32,7 @@ class IndicatorSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('indicators')->insert([
-            'idType' => 1,
+            'idCategory' => 1,
             'description' => 'Cabello (Peinado)',
             'score' => 1,
             'status' => 1,
@@ -40,7 +40,7 @@ class IndicatorSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('indicators')->insert([
-            'idType' => 1,
+            'idCategory' => 1,
             'description' => 'Cubre Boca',
             'score' => 2,
             'status' => 1,
@@ -48,7 +48,7 @@ class IndicatorSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('indicators')->insert([
-            'idType' => 1,
+            'idCategory' => 1,
             'description' => 'Gorro',
             'score' => 1,
             'status' => 1,
@@ -56,7 +56,7 @@ class IndicatorSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('indicators')->insert([
-            'idType' => 1,
+            'idCategory' => 1,
             'description' => 'Piso Limpio',
             'score' => 1,
             'status' => 1,
@@ -64,7 +64,7 @@ class IndicatorSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('indicators')->insert([
-            'idType' => 1,
+            'idCategory' => 1,
             'description' => 'Mesa de Trabajo Ordenada',
             'score' => 1,
             'status' => 1,
@@ -72,7 +72,7 @@ class IndicatorSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('indicators')->insert([
-            'idType' => 1,
+            'idCategory' => 1,
             'description' => 'Uso de Telefono unicamente en el lugar de descanso',
             'score' => 5,
             'status' => 1,
@@ -81,7 +81,7 @@ class IndicatorSeeder extends Seeder
         ]);
 
         DB::table('indicators')->insert([
-            'idType' => 2,
+            'idCategory' => 2,
             'description' => 'Ausencias Injustificadas',
             'score' => 4,
             'status' => 1,
@@ -89,7 +89,7 @@ class IndicatorSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('indicators')->insert([
-            'idType' => 2,
+            'idCategory' => 2,
             'description' => 'Llegadas tardes',
             'score' => 4,
             'status' => 1,
@@ -97,7 +97,7 @@ class IndicatorSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('indicators')->insert([
-            'idType' => 2,
+            'idCategory' => 2,
             'description' => 'Permisos Extraordinarios',
             'score' => 4,
             'status' => 1,

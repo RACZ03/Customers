@@ -1,7 +1,7 @@
 <!-- Candidate selector -->
 @foreach($indicators as $item)
 
-@if( $item['idType'] == 2 )
+@if( $item['idCategory'] == 2 )
     <div class="row mb-2 align-items-center">
 
         <div class="col-5">

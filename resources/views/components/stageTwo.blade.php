@@ -3,7 +3,7 @@
 <div class="col">
     <ul class="list-group">
         @foreach($indicators as $item)
-        @if( $item['idType'] == 1 )
+        @if( $item['idCategory'] == 1 )
 
         <li class="list-group-item">
             <div class="row">
