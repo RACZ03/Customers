@@ -4,6 +4,8 @@ A simple customer registry developed in  [Laravel](https://laravel.com/docs/8.x/
 
 Requirements: 
 * [COMPOSER](https://getcomposer.org/)
+* Local php server
+* [NPM](https://www.npmjs.com/)
 
 Type: 
 * MVC APP
@@ -29,7 +31,9 @@ $
 Run migrations
 ```
 php artisan migrate
+```
 
 Run seeder (Optionals)
 ```
 php artisan db:seed
+```
