@@ -12,17 +12,26 @@ class Customer extends Model
 
     protected $fillable = [
         'id',
-        'name',
-        'lastName',
+        'firstName',
+        'secondName',
+        'surname',
+        'secondSurname',
         'dni',
         'phoneNumber',
         'status'
     ];
 
     public function scopeSearch($query, $text){
-        return $query->where('name', 'LIKE', '%'.$text.'%')
-                     ->orWhere('lastName', 'LIKE', '%'.$text.'%')
+        return $query->where('firstName', 'LIKE', '%'.$text.'%')
+                     ->orWhere('secondName', 'LIKE', '%'.$text.'%')
+                     ->orWhere('surname', 'LIKE', '%'.$text.'%')
+                     ->orWhere('secondSurname', 'LIKE', '%'.$text.'%')
                      ->orWhere('dni', 'LIKE', '%'.$text.'%')
                      ->orWhere('phoneNumber', 'LIKE', '%'.$text.'%');
+    }
+
+    // Relacion de uno a muchos
+    public function evaluation() {
+        return $this->hasMany('App\Models\Evaluation');
     }
 }

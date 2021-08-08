@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EvaluationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,12 +14,11 @@ use App\Http\Controllers\CustomerController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// Evaluation Controller Paths
+Route::resource('/', EvaluationController::class);
 
-Route::resource('/', CustomerController::class)->middleware('api.verify');
-// Route::get('/all', [CustomerController::class, 'index']);
+// Candidate Controller Paths
+Route::resource('/candidatos', CustomerController::class)->middleware('api.verify');
 
-Route::put('/{id}', [CustomerController::class, 'update'])->middleware('api.verify');
-Route::delete('/{id}', [CustomerController::class, 'destroy'])->middleware('api.verify');
+Route::put('/candidatos/{id}', [CustomerController::class, 'update'])->middleware('api.verify');
+Route::delete('/candidatos/{id}', [CustomerController::class, 'destroy'])->middleware('api.verify');

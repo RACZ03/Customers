@@ -16,8 +16,10 @@ class CustomerSeeder extends Seeder
     public function run()
     {
         DB::table('customers')->insert([
-            'name' => 'Juan Ernesto',
-            'lastName' => 'Lopez Tellez',
+            'firstName' => 'Juan',
+            'secondName' => 'Ernesto',
+            'surname' => 'Lopez',
+            'secondSurname'=> 'Tellez',
             'dni' => '001-171085-0009G',
             'phoneNumber' => '505 8730 5240',
             'status' => 1,
@@ -26,8 +28,10 @@ class CustomerSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-            'name' => 'Karla Carolina',
-            'lastName' => 'Estrada Aguirre',
+            'firstName' => 'Karla',
+            'secondName' => 'Carolina',
+            'surname' => 'Estrada',
+            'secondSurname'=> 'Aguirre',
             'dni' => '001-200590-0004K',
             'phoneNumber' => '505 8842 6987',
             'status' => 1,
@@ -36,8 +40,10 @@ class CustomerSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-            'name' => 'Mario Antonio',
-            'lastName' => 'Morales Corea',
+            'firstName' => 'Mario',
+            'secondName' => 'Antonio',
+            'surname' => 'Morales',
+            'secondSurname'=> 'Corea',
             'dni' => '481-171085-0005B',
             'phoneNumber' => '505 5757 5240',
             'status' => 1,
@@ -46,8 +52,10 @@ class CustomerSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-            'name' => 'Ana Sofia',
-            'lastName' => 'Aleman Sanchez',
+            'firstName' => 'Ana',
+            'secondName' => 'Sofia',
+            'surname' => 'Aleman',
+            'secondSurname'=> 'Sanchez',
             'dni' => '401-200590-0002C',
             'phoneNumber' => '505 7856 5656',
             'status' => 1,
@@ -56,8 +64,10 @@ class CustomerSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-            'name' => 'Mariano Antonio',
-            'lastName' => 'Ruiz Tapia',
+            'firstName' => 'Mariano',
+            'secondName' => 'Antonio',
+            'surname' => 'Ruiz',
+            'secondSurname'=> 'Tapia',
             'dni' => '005-120368-0001X',
             'phoneNumber' => '505 8757 5200',
             'status' => 1,
@@ -66,8 +76,10 @@ class CustomerSeeder extends Seeder
         ]);
 
         DB::table('customers')->insert([
-            'name' => 'Marcos Jose',
-            'lastName' => 'Suarez Sanchez',
+            'firstName' => 'Marcos',
+            'secondName' => 'Jose',
+            'surname' => 'Suarez',
+            'secondSurname'=> 'Sanchez',
             'dni' => '401-030593-0002Z',
             'phoneNumber' => '505 7899 3256',
             'status' => 1,

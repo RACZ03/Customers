@@ -23,7 +23,7 @@ class CustomerController extends Controller
                              ->search($searchText)
                              ->orderBy('id', 'DESC')
                              ->paginate(6);
-        return view('index', compact('customers', 'searchText'));
+        return view('pages.customer', compact('customers', 'searchText'));
     }
 
     /**
@@ -38,8 +38,10 @@ class CustomerController extends Controller
         $json = $request->input('json', null);
         $params_array = json_decode($json, true);
         $validate = Validator::make($params_array, [
-            'name' => 'required|max:40',
-            'lastName' => 'required|max:40',
+            'firstName' => 'required|max:30',
+            'secondName' => 'required|max:30',
+            'surname' => 'required|max:30',
+            'secondSurname' => 'required|max:30',
             'dni' => 'required|max:16'
         ]);
         if ( $validate->fails() ) {
@@ -50,8 +52,10 @@ class CustomerController extends Controller
             );
         } else {
             $customer = new Customer();
-            $customer->name = $params_array['name'];
-            $customer->lastName = $params_array['lastName'];
+            $customer->firstName = $params_array['firstName'];
+            $customer->secondName = $params_array['secondName'];
+            $customer->surname = $params_array['surname'];
+            $customer->secondSurname = $params_array['secondSurname'];
             $customer->dni = $params_array['dni'];
             if ( $params_array['phoneNumber']) $customer->phoneNumber = $params_array['phoneNumber'];
             
@@ -75,8 +79,10 @@ class CustomerController extends Controller
         $params_array = json_decode($json, true);
         unset($params_array['id']);
         $validate = Validator::make($params_array, [
-            'name' => 'required|max:40',
-            'lastName' => 'required|max:40',
+            'firstName' => 'required|max:30',
+            'secondName' => 'required|max:30',
+            'surname' => 'required|max:30',
+            'secondSurname' => 'required|max:30',
             'dni' => 'required|max:16'
         ]);
         if ( $validate->fails() ) {

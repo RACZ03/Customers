@@ -24,8 +24,8 @@
               <label for="lastName" class="col-form-label">Segundo Nombre:</label>
             </div>
             <div class="col-8">
-              <input type="text" id="lastName" class="form-control"
-                     aria-describedby="lastName">
+              <input type="text" id="secondName" class="form-control"
+                     aria-describedby="secondName">
             </div>
           </div>
           <!-- Surname -->
@@ -73,12 +73,12 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetModal()">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-      </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetModal()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

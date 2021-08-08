@@ -1,11 +1,9 @@
-# API of store project
+# Customer registration application
 
-A simple customer registry developed in  [lARAVEL](https://laravel.com/docs/8.x/eloquent) and [MySQL](https://www.mysql.com/)
+A simple customer registry developed in  [Laravel](https://laravel.com/docs/8.x/eloquent) and [MySQL](https://www.mysql.com/)
 
 Requirements: 
 * [COMPOSER](https://getcomposer.org/)
-* [Wampserver](https://www.wampserver.com/en/) | [XAMPP](https://www.apachefriends.org/es/index.html)
-* [NPM](https://www.npmjs.com/)
 
 Type: 
 * MVC APP

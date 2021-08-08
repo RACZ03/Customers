@@ -15,8 +15,10 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->char('name', 40)->nullable($value = false);
-            $table->char('lastName', 40)->nullable($value = true);
+            $table->char('firstName', 30)->nullable($value = false);
+            $table->char('secondName', 30)->nullable($value = true);
+            $table->char('surname', 30)->nullable($value = false);
+            $table->char('secondSurname', 30)->nullable($value = true);
             $table->char('dni', 16)->nullable($value = false)->unique();
             $table->char('phoneNumber', 13)->nullable($value = false)->unique();
             $table->boolean('status')->nullable($value = false);
