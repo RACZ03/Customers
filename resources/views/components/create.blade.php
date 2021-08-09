@@ -68,7 +68,8 @@
                 </div>
                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 col-8">
                   <input type="text" id="phoneNumber" class="form-control" value="505"
-                        aria-describedby="phoneNumber" maxlength="13">
+                        aria-describedby="phoneNumber" maxlength="13"
+                        onkeypress="return validateInputPhoneNumber( event )">
                 </div>
               </div>
             </div>

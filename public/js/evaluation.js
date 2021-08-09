@@ -1,3 +1,8 @@
+// Define path url
+const pathE = window.location.href;
+const indexPathE = pathE.indexOf('public/') + 7;
+const urlE = pathE.slice(0, indexPathE);
+const API_URLE = urlE;
 // View control to display
 let stage = 0;
 
@@ -10,6 +15,7 @@ const titleStart = 'Iniciar';
 const titleNext = 'Siguiente';
 const titleFinish = 'Finalizar';
 
+let currentDate = '';
 // Definition of content instances
 const titleContent = document.querySelector('#titleContent'),
     btnNext = document.querySelector('#labelBtnNext'),
@@ -19,6 +25,7 @@ const titleContent = document.querySelector('#titleContent'),
 initialize();
 
 function initialize() {
+    currentDate = buildDate();
     this.loadModal();
 
     this.nextOrBack(true);
@@ -37,7 +44,6 @@ function buildDate() {
 
 // Load modal forms
 function loadModal() {
-    let currentDate = buildDate();
     // Define form title
     if (titleContent && btnNext) {
         titleContent.innerHTML = title1;
@@ -93,16 +99,23 @@ async function nextOrBack(band) {
         btnNext.innerHTML = titleFinish;
         titleContent.innerHTML = title3;
     } else {
-        // create object
-        // .1 Get total Score
-        const totalScore = await getScore();
-        console.log(totalScore)
+        // .1 Get the id of the selected indicators (stage 2)
+        const arrayId = await getSelectedIndicators();
+        
+        // 2.create object
+        let data = {
+            idUser: formEvaluation.idCandidate.value,
+            startDate: formEvaluation.startDate.value,
+            endDate: formEvaluation.endDate.value,
+            arrayId
+        };
+        this.sendDataEvaluation(data, 'POST');
     }
 
 }
 
 // Validation methods
-// 1. Stage 1
+// Stage 1
 function validationStage1() {
     return new Promise((resolve) => {
         if (formEvaluation.idCandidate.value !== '0' && formEvaluation.startDate.value !== '' && formEvaluation.endDate.value !== '') {
@@ -111,27 +124,45 @@ function validationStage1() {
             return;
         }
 
-        showAlert('error', 'Error', 'Por favor completa correctamente los campos requeridos');
+        showAlertEvaluation('error', 'Error', 'Por favor completa correctamente los campos requeridos');
         resolve(false);
     });
 }
 
-//  validate input of category 2 indicator
-function changeInputI2(event) {
-    event.value = evento.value.replace(/[^0-9]/g, "");
+//  validate the minimum date of the input endDate after the selection of the initial date
+function changeInputDate(e) {
+    formEvaluation.endDate.min = e.target.value;
 }
 
-// Get Score
-function getScore() {
+// Validate numeric field to allow values ​​0 and 1 (stage 3)
+function validateInputNumber( e ) {
+    let key = e.keyCode || e.which;
+    let keyboard = String.fromCharCode(key);
+    let numbers = '01';
+    if ( numbers.indexOf(keyboard) === -1) return false;
+
+    return true;
+}
+
+// Get the id of the selected indicators
+function getSelectedIndicators() {
     return new Promise((resolve) => {
-        let totalScore = 0;
-        // Get the total number of items in the list of category 1 indicators
-        let count = document.querySelectorAll('#listGroup .element').length;
-        for (let i = 0; i < count; i++) {
-            var item = document.getElementById(`check${i + 1}`);
-            if (item.checked) totalScore += parseInt(item.value);
+        let arrayId = [];
+
+        // Obtain the list of elements that belong to a class related to the indicators to obtain their id
+        const elements = document.getElementsByClassName('item_selected');
+
+        for (let i = 0; i < elements.length; i++) {
+            //Divide checkbox inputs from text types
+            if ( elements[i].type === 'checkbox') { // Stage 2
+                let item = document.getElementById(`${elements[i].id}`);
+                if (item.checked) arrayId = [ ...arrayId, item.id];
+            } else { // Stage 3
+                let item = document.getElementById(`${elements[i].id}`);
+                if (item.value === '1') arrayId = [ ...arrayId, item.id];
+            }
         }
-        resolve(totalScore);
+        resolve(arrayId);
     });
 }
 
@@ -155,8 +186,57 @@ function showRedBox() {
 }
 
 
+// Send DATA
+function deleteCustomer(custorme) {
+
+    Swal.fire({
+        title: 'Estas seguro?',
+        text: "Desea eliminar al cliente: " + custorme.firstName + ' ' + custorme.secondName + ' ' + custorme.surname + ' ' + custorme.secondSurname,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar!'
+    }).then((result) => {
+        if (!result.isConfirmed) {
+            return;
+        }
+        let data = { id: custorme.id };
+        sendData(data, 'DELETE')
+    });
+}
+
+
+function sendDataEvaluation(data, type) {
+    let url;
+    if (type === 'PUT' || type === 'DELETE') {
+        url = API_URLE + '/' + data.id;
+    } else { url = API_URLE; }
+
+    $.ajax({
+        url,
+        type,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: { 'json': JSON.stringify(data) },
+        success: function(Response) {
+            if (Response.code === 400) {
+                showAlertEvaluation('error', 'Error', Response.message);
+            } else if (Response.code === 404) {
+                showAlertEvaluation('error', 'Error', Response.message)
+            } else if (Response.code === 201 || Response.code === 200) {
+                resetModalE();
+                showAlertEvaluation('success', 'Success', Response.message);
+                redirect();
+            }
+            return;
+        }
+    });
+}
+
 // Show alert
-function showAlert(icon, title, text) {
+function showAlertEvaluation(icon, title, text) {
     Swal.fire({
         icon,
         title,
@@ -165,3 +245,29 @@ function showAlert(icon, title, text) {
         timer: 2000
     });
 }
+
+// Salir de la page
+function redirect() {
+    window.location = API_URLE;
+}
+
+// Clear the form
+function resetModalE() {
+    formEvaluation.idCandidate.value = '';
+    formEvaluation.startDate.value =  currentDate;
+    formEvaluation.endDate.value =  currentDate;
+    const elements = document.getElementsByClassName('item_selected');
+    for (let i = 0; i < elements.length; i++) {
+        //Divide checkbox inputs from text types
+        if ( elements[i].type === 'checkbox') { // Stage 2
+            let item = document.getElementById(`${elements[i].id}`);
+            item.checked = false;
+        } else { // Stage 3
+            let item = document.getElementById(`${elements[i].id}`);
+            item.value === '';
+        }
+    }
+}
+
+
+// <!-- checked="{{ isset($details) ? array_search($item->id, array_column($details, 'idEvaluation')) : false}}" -->

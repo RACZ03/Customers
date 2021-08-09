@@ -8,8 +8,13 @@
     <div class="col-9">
         <select class="form-control form-select" 
                 aria-label="Default select example"
-                id="idCandidate" require>
+                id="idCandidate" require
+                value={{ isset($evaluation->idUser) ? $evaluation->idUser : '' }}>
+            <!-- show if new record -->
+            @if( !isset($evaluation->idUser) )
             <option value="0" selected>Seleccione un candidato</option>
+            @endif
+            
             @foreach ($candidates as $item)
             <option value="{{ $item['id'] }}">
                 {{ $item['firstName'].' '.$item['secondName'].' '.$item['surname'].' '.$item['secondSurname'] }}
@@ -27,7 +32,12 @@
                 <label for="from" class="col-form-label input-label">Desde:</label>
             </div>
             <div class="col-8">
-                <input type="date" class="form-control" id="startDate" require>
+                <input type="date" 
+                       class="form-control" 
+                       id="startDate"
+                       onchange="changeInputDate(event)"
+                       value="{{ isset($evaluation->startDate) ? date('Y-m-d', strtotime($evaluation->startDate)) : '' }}"
+                       require>
             </div>
         </div>
     </div>
@@ -38,7 +48,11 @@
                 <label for="to" class="col-form-label input-label">Hasta:</label>
             </div>
             <div class="col-8">
-                <input type="date" class="form-control" id="endDate" require>
+                <input type="date" 
+                       class="form-control" 
+                       id="endDate" 
+                       value="{{ isset($evaluation->endDate) ? date('Y-m-d', strtotime($evaluation->endDate)) : '' }}"
+                       require>
             </div>
         </div>
     </div>

@@ -64,6 +64,16 @@ formCustomer.phoneNumber.addEventListener('keyup', (e) => {
         .trim() // Elimina el utlimo espacio de una cadena
 });
 
+// Validate numeric field to allow values ​​0 and 9
+function validateInputPhoneNumber( e ) {
+    let key = e.keyCode || e.which;
+    let keyboard = String.fromCharCode(key);
+    let numbers = '0123456789';
+    if ( numbers.indexOf(keyboard) === -1) return false;
+
+    return true;
+}
+
 
 // Save customer
 $('#form-customer').submit(function(e) {

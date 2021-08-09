@@ -25,4 +25,9 @@ class Evaluation extends Model
         return $this->belongsTo('App\Models\Customer', 'id');
     }
 
+    // Relacion de uno a muchos
+    public function detail() {
+        return $this->hasMany('App\Models\EvaluationDetail');
+    }
+
 }

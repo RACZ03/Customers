@@ -16,4 +16,9 @@ class Indicator extends Model
         'score',
         'status'
     ];
+
+    // Relacion de uno a muchos
+    public function detail() {
+        return $this->hasMany('App\Models\EvaluationDetail');
+    }
 }

@@ -2,14 +2,13 @@
 
 @section('content')
 
-
     <div class=" mt-4 mx-auto content"  style="max-width: 750px;">
 
         <!-- Title -->
         <h5 class="title" id="titleContent"></h5>
 
         <form class="col-12" id="form-Evaluation">
-        
+        @csrf
             <!-- Stage 1 -->
             <div id="stage1">
                 <!-- Stage1 import -->

@@ -21,6 +21,7 @@ class Customer extends Model
         'status'
     ];
 
+    // Search method
     public function scopeSearch($query, $text){
         return $query->where('firstName', 'LIKE', '%'.$text.'%')
                      ->orWhere('secondName', 'LIKE', '%'.$text.'%')
