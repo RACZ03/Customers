@@ -16,7 +16,7 @@
         <li class="nav-item">
           <a class="nav-link {{ Request::is('candidatos') ? 'active' : '' }}"
              href="{{ route('candidatos.index') }}">
-            Clientes
+            Candidatos
           </a>
         </li>
       </ul>

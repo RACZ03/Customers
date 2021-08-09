@@ -10,8 +10,8 @@
             </label>
         </div>
         <div class="col-7">
-            <input type="text" id="option" class="form-control"
-                    aria-describedby="option" maxlength="1">
+            <input type="text" id="optionStage3" class="form-control" keydown="changeInputI2( $event )"
+                    aria-describedby="option" maxlength="1" pattern="[0-1]+">
         </div>
     </div>
 @endif
