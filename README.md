@@ -22,7 +22,7 @@ To run this project, install it locally using composer:
 $ cd .../projectName
 $ composer install
 $ npm install ( optional )
-$ create database ( evaluactionsdb )
+$ create database evaluationsdb
 $ create file .env ( copy file .env.expample and rename it to .env )
 $ create key applicaction ( php artisan key:generate )
 $
