@@ -1,22 +1,22 @@
 <!-- Candidate selector -->
 <div class="row mb-2 align-items-center">
+    <input type="hidden" name="idEvaluation" id="idEvaluation" value="{{ isset($evaluation->id) ? $evaluation->id : '' }}">
     <div class="col-3">
         <label for="candidate" class="col-form-label input-label">
             Candidato:
         </label>
     </div>
     <div class="col-9">
+
         <select class="form-control form-select" 
                 aria-label="Default select example"
-                id="idCandidate" require
-                value={{ isset($evaluation->idUser) ? $evaluation->idUser : '' }}>
+                id="idCandidate" require>
             <!-- show if new record -->
             @if( !isset($evaluation->idUser) )
             <option value="0" selected>Seleccione un candidato</option>
             @endif
-            
             @foreach ($candidates as $item)
-            <option value="{{ $item['id'] }}">
+            <option value="{{ $item['id'] }}" @if( isset($evaluation->idUser) && $item->id === $evaluation->idUser) selected='selected' @endif>
                 {{ $item['firstName'].' '.$item['secondName'].' '.$item['surname'].' '.$item['secondSurname'] }}
             </option>
             @endforeach

@@ -4,7 +4,12 @@
     <ul class="list-group"  id="listGroup">
         @foreach($indicators as $item)
         @if( $item['idCategory'] == 1 )
-        <?php if($details->contains('idEvaluation', $item->id)){echo'hi';}else{echo'no';} ?>
+
+        <?php 
+            if( isset($details) ) { 
+                $found = array_search($item->id, array_column($details, 'idIndicator'));
+            }
+        ?>
 
         <li class="list-group-item element">
             <div class="row">
@@ -13,12 +18,12 @@
                 </div>
                 <div class="col-2">
                     <label class="switch">
-                        <input type="checkbox" 
-                               checked="{{ isset($details) ? $details->contains('idEvaluation', $item->id) : false}}"
-                               class="item_selected" 
-                               id="{{ $item['id'] }}">
+                        @if( isset($found) && $found !== false )
+                        <input type="checkbox" class="item_selected" id="{{ $item['id'] }}" checked>
+                        @else
+                        <input type="checkbox" class="item_selected" id="{{ $item['id'] }}">
+                        @endif
                         <span class="slider round"></span>
-
                     </label>
                 </div>
             </div>

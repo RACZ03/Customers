@@ -22,7 +22,7 @@ class Evaluation extends Model
 
     // Relacion de muchos a uno
     public function customer() {
-        return $this->belongsTo('App\Models\Customer', 'id');
+        return $this->belongsTo('App\Models\Customer', 'idUser');
     }
 
     // Relacion de uno a muchos

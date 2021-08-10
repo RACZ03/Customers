@@ -1,6 +1,6 @@
-# Customer registration application
+# Candidate evaluation app
 
-A simple customer registry developed in  [Laravel](https://laravel.com/docs/8.x/eloquent) and [MySQL](https://www.mysql.com/)
+A simple record of candidate evaluations developed in  [Laravel](https://laravel.com/docs/8.x/eloquent) and [MySQL](https://www.mysql.com/)
 
 Requirements: 
 * [COMPOSER](https://getcomposer.org/)
@@ -20,9 +20,9 @@ To run this project, install it locally using composer:
 
 ```
 $ cd .../projectName
-$ composere install
+$ composer install
 $ npm install ( optional )
-$ create database ( customeres )
+$ create database ( evaluactionsdb )
 $ create file .env ( copy file .env.expample and rename it to .env )
 $ create key applicaction ( php artisan key:generate )
 $

@@ -17,6 +17,8 @@ use App\Http\Controllers\EvaluationController;
 // Evaluation Controller Paths
 Route::resource('/', EvaluationController::class);
 Route::get('/{id}/edit', [EvaluationController::class, 'edit']);
+Route::put('/{id}', [EvaluationController::class, 'update']);
+Route::delete('/{id}', [EvaluationController::class, 'destroy']);
 
 // Candidate Controller Paths
 Route::resource('/candidatos', CustomerController::class)->middleware('api.verify');

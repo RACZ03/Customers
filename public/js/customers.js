@@ -65,11 +65,11 @@ formCustomer.phoneNumber.addEventListener('keyup', (e) => {
 });
 
 // Validate numeric field to allow values ​​0 and 9
-function validateInputPhoneNumber( e ) {
+function validateInputPhoneNumber(e) {
     let key = e.keyCode || e.which;
     let keyboard = String.fromCharCode(key);
     let numbers = '0123456789';
-    if ( numbers.indexOf(keyboard) === -1) return false;
+    if (numbers.indexOf(keyboard) === -1) return false;
 
     return true;
 }
@@ -159,21 +159,21 @@ $('#form-customer').submit(function(e) {
 });
 
 
-function deleteCustomer(custorme) {
+function deleteCustomer(customer) {
 
     Swal.fire({
         title: 'Estas seguro?',
-        text: "Desea eliminar al cliente: " + custorme.firstName + ' ' + custorme.secondName + ' ' + custorme.surname + ' ' + custorme.secondSurname,
+        text: "Desea eliminar al candidato: " + customer.firstName + ' ' + customer.secondName + ' ' + customer.surname + ' ' + customer.secondSurname,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Eliminar!'
+        confirmButtonText: 'Eliminar'
     }).then((result) => {
         if (!result.isConfirmed) {
             return;
         }
-        let data = { id: custorme.id };
+        let data = { id: customer.id };
         sendData(data, 'DELETE')
     });
 }

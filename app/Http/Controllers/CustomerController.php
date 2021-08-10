@@ -110,7 +110,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $userFound = Customer::where('id', '=', $id)->where('id', '=', $id);
+        $userFound = Customer::where('id', '=', $id);
 
         if ( $userFound == null ) {
             $data = array(

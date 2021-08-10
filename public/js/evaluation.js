@@ -7,7 +7,7 @@ const API_URLE = urlE;
 let stage = 0;
 
 // Titles of the content of the stages of the form
-const title1 = 'Nueva Evaluación';
+const title1 = (pathE.indexOf('edit') && pathE.indexOf('edit') !== -1) ? 'Editar Evaluación' : 'Nueva Evaluación';
 const title2 = 'Presentación Personal, Porte y Aspecto y Puesto de Trabajo';
 const title3 = 'Asistencia y Puntualidad';
 // buttom text
@@ -32,6 +32,7 @@ function initialize() {
 
 }
 
+// construct the date for the input dates of the form
 function buildDate() {
     let date = new Date();
     let year = date.getFullYear();
@@ -46,8 +47,8 @@ function buildDate() {
 function loadModal() {
     // Define form title
     if (titleContent && btnNext) {
-        titleContent.innerHTML = title1;
         btnNext.innerHTML = titleStart;
+        titleContent.innerHTML = title1;
 
         // block expired date of date inputs
         formEvaluation.startDate.min = currentDate;
@@ -72,6 +73,7 @@ async function nextOrBack(band) {
         $('#btnBack').hide();
 
         if (btnNext) btnNext.innerHTML = titleStart;
+        if (titleContent) titleContent.innerHTML = title1;
     } // switch to stage 2
     else if (stage === 2) {
         // validation stage 1
@@ -101,7 +103,7 @@ async function nextOrBack(band) {
     } else {
         // .1 Get the id of the selected indicators (stage 2)
         const arrayId = await getSelectedIndicators();
-        
+
         // 2.create object
         let data = {
             idUser: formEvaluation.idCandidate.value,
@@ -109,7 +111,14 @@ async function nextOrBack(band) {
             endDate: formEvaluation.endDate.value,
             arrayId
         };
-        this.sendDataEvaluation(data, 'POST');
+        let type = 'POST';
+        if (formEvaluation.idEvaluation.value !== '') {
+            type = 'PUT';
+            data.id = formEvaluation.idEvaluation.value;
+        }
+
+        // send to save data
+        this.sendDataEvaluation(data, type);
     }
 
 }
@@ -135,11 +144,11 @@ function changeInputDate(e) {
 }
 
 // Validate numeric field to allow values ​​0 and 1 (stage 3)
-function validateInputNumber( e ) {
+function validateInputNumber(e) {
     let key = e.keyCode || e.which;
     let keyboard = String.fromCharCode(key);
     let numbers = '01';
-    if ( numbers.indexOf(keyboard) === -1) return false;
+    if (numbers.indexOf(keyboard) === -1) return false;
 
     return true;
 }
@@ -154,12 +163,12 @@ function getSelectedIndicators() {
 
         for (let i = 0; i < elements.length; i++) {
             //Divide checkbox inputs from text types
-            if ( elements[i].type === 'checkbox') { // Stage 2
+            if (elements[i].type === 'checkbox') { // Stage 2
                 let item = document.getElementById(`${elements[i].id}`);
-                if (item.checked) arrayId = [ ...arrayId, item.id];
+                if (item.checked) arrayId = [...arrayId, item.id];
             } else { // Stage 3
                 let item = document.getElementById(`${elements[i].id}`);
-                if (item.value === '1') arrayId = [ ...arrayId, item.id];
+                if (item.value === '1') arrayId = [...arrayId, item.id];
             }
         }
         resolve(arrayId);
@@ -196,7 +205,7 @@ function deleteCustomer(custorme) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Eliminar!'
+        confirmButtonText: 'Eliminar'
     }).then((result) => {
         if (!result.isConfirmed) {
             return;
@@ -206,11 +215,31 @@ function deleteCustomer(custorme) {
     });
 }
 
+// Delete evaluation
+function deleteEvaluation(item) {
+    let candidator = `${ item.customer.firstName } ${ item.customer.secondName } ${ item.customer.surname } ${ item.customer.secondSurname }`;
+    Swal.fire({
+        title: 'Estas seguro?',
+        text: "Desea eliminar la evaluacion del cantidado: " + candidator,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar!'
+    }).then((result) => {
+        if (!result.isConfirmed) {
+            return;
+        }
+        let data = { id: item.id };
+        sendDataEvaluation(data, 'DELETE')
+    });
+}
 
+// Sent data
 function sendDataEvaluation(data, type) {
     let url;
     if (type === 'PUT' || type === 'DELETE') {
-        url = API_URLE + '/' + data.id;
+        url = API_URLE + data.id;
     } else { url = API_URLE; }
 
     $.ajax({
@@ -253,21 +282,20 @@ function redirect() {
 
 // Clear the form
 function resetModalE() {
-    formEvaluation.idCandidate.value = '';
-    formEvaluation.startDate.value =  currentDate;
-    formEvaluation.endDate.value =  currentDate;
-    const elements = document.getElementsByClassName('item_selected');
-    for (let i = 0; i < elements.length; i++) {
-        //Divide checkbox inputs from text types
-        if ( elements[i].type === 'checkbox') { // Stage 2
-            let item = document.getElementById(`${elements[i].id}`);
-            item.checked = false;
-        } else { // Stage 3
-            let item = document.getElementById(`${elements[i].id}`);
-            item.value === '';
+    if (formEvaluation) {
+        formEvaluation.idCandidate.value = '';
+        formEvaluation.startDate.value = currentDate;
+        formEvaluation.endDate.value = currentDate;
+        const elements = document.getElementsByClassName('item_selected');
+        for (let i = 0; i < elements.length; i++) {
+            //Divide checkbox inputs from text types
+            if (elements[i].type === 'checkbox') { // Stage 2
+                let item = document.getElementById(`${elements[i].id}`);
+                item.checked = false;
+            } else { // Stage 3
+                let item = document.getElementById(`${elements[i].id}`);
+                item.value === '';
+            }
         }
     }
 }
-
-
-// <!-- checked="{{ isset($details) ? array_search($item->id, array_column($details, 'idEvaluation')) : false}}" -->

@@ -19,11 +19,11 @@ class EvaluationDetail extends Model
 
     // Relacion de muchos a uno
     public function evaluation() {
-        return $this->belongsTo('App\Models\Evaluation', 'id');
+        return $this->belongsTo('App\Models\Evaluation', 'idEvaluation');
     }    
     
     public function indicator() {
-        return $this->belongsTo('App\Models\Indicator', 'id');
+        return $this->belongsTo('App\Models\Indicator', 'idIndicator');
     }
 
     // Calculate score
@@ -40,11 +40,18 @@ class EvaluationDetail extends Model
         return $count;
     }
 
+    // Get detail by id Evaluation
+    public function scopeGetDetailById($query, $id) {
+        return EvaluationDetail::select('idIndicator')
+                                       ->where('idEvaluation', '=' , $id)
+                                       ->get();
+    }
+
     // Save detail
     public function scopeSaveDetail($query, $arrayIndicators, $idE) {
         try {
             foreach ($arrayIndicators as $id) {
-                // Create Object
+                // Create new detail
                 $newDetail = new EvaluationDetail();
                 $newDetail->idEvaluation = $idE;
                 $newDetail->idIndicator = $id;
@@ -55,4 +62,43 @@ class EvaluationDetail extends Model
             return false;
         }
     }
+
+    // Update detail
+    public function scopeUpdateDetail ( $query, $arrayIndicators, $idE ) {
+
+        try {
+            //if it is edit consult the previous records
+            $details = EvaluationDetail::GetDetailById($idE);
+    
+            // Loop through arrangement that comes from request
+            foreach($arrayIndicators as $id) {
+                // Check if a record exists
+                $detailfound = EvaluationDetail::where('idEvaluation', '=', $idE)
+                                               ->where('idIndicator', '=', $id)
+                                               ->first();
+                if ( !$detailfound ) { // If it does not exist
+                    // Create new detail
+                    $newDetail = new EvaluationDetail();
+                    $newDetail->idEvaluation = $idE;
+                    $newDetail->idIndicator = $id;
+                    $newDetail->save();
+                }
+            }
+    
+            // Reverse check to remove the if a previous record does not belong to the new one
+            foreach ( $details as $detail ) {
+                if ( !in_array($detail->idIndicator, $arrayIndicators) ) {
+                    $found = EvaluationDetail::where('idEvaluation', '=', $idE)
+                                             ->where('idIndicator', '=', $detail->idIndicator)
+                                             ->first();
+                    if ( $found ) $found->delete();
+                }
+            }
+            return true;
+        } catch ( \Exception $e) {
+            return true;
+        }
+        
+    }
+
 }
