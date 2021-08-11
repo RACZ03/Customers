@@ -66,6 +66,7 @@ async function nextOrBack(band) {
     stage = band ? (stage + 1) : (stage - 1);
     // If the first one is visible
     if (stage === 1) {
+        // Show or hide content
         $('#stage1').show();
         $('#stage2').hide();
         $('#stage3').hide();
@@ -128,7 +129,6 @@ async function nextOrBack(band) {
 function validationStage1() {
     return new Promise((resolve) => {
         if (formEvaluation.idCandidate.value !== '0' && formEvaluation.startDate.value !== '' && formEvaluation.endDate.value !== '') {
-
             resolve(true);
             return;
         }
@@ -220,12 +220,12 @@ function deleteEvaluation(item) {
     let candidator = `${ item.customer.firstName } ${ item.customer.secondName } ${ item.customer.surname } ${ item.customer.secondSurname }`;
     Swal.fire({
         title: 'Estas seguro?',
-        text: "Desea eliminar la evaluacion del cantidado: " + candidator,
+        text: "Desea eliminar la evaluación del cantidado: " + candidator,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Eliminar!'
+        confirmButtonText: 'Eliminar'
     }).then((result) => {
         if (!result.isConfirmed) {
             return;

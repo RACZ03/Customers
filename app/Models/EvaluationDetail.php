@@ -40,6 +40,23 @@ class EvaluationDetail extends Model
         return $count;
     }
 
+    // Calculate bond 
+    public function scopeCalculateBond($query, $totalScore) {
+        $bond = 0;
+        // Calculate bonus based on score
+        //     Maximum score 25 == $ 10
+        //     If it is less than 20 pts = 0;
+        if ( $totalScore <= 25 && $totalScore >= 20 ) {
+            $query = Indicator::sum('score'); //Max score
+            // The initial amount based on the maximum value (10) is defined and divided by the candida to be averaged
+            $amount = 10 / 6; 
+            // Obtain the multiplier value of the last digit of the summary score
+            $x = substr($totalScore, 1) + 1;
+            $bond = ( $amount * $x );
+        } 
+        return $bond;
+    }
+
     // Get detail by id Evaluation
     public function scopeGetDetailById($query, $id) {
         return EvaluationDetail::select('idIndicator')

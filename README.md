@@ -28,7 +28,9 @@ $ create key applicaction ( php artisan key:generate )
 $
 ```
 
-Run migrations
+Table creation
+
+* Option 1 Run migrations
 ```
 php artisan migrate
 ```
@@ -36,4 +38,9 @@ php artisan migrate
 Run seeder (Optionals)
 ```
 php artisan db:seed
+```
+
+* Option 2 Run Script
+```
+The script is located inside the database folder with the name "evaluationsdb"
 ```

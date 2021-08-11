@@ -1,4 +1,5 @@
 
+<!-- Page Candidates -->
 @extends('layouts.layout')
 
 @section('content')

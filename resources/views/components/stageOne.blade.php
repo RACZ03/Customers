@@ -1,3 +1,5 @@
+<!-- First stage of the form (Definition of the candidate and evaluation period) -->
+
 <!-- Candidate selector -->
 <div class="row mb-2 align-items-center">
     <input type="hidden" name="idEvaluation" id="idEvaluation" value="{{ isset($evaluation->id) ? $evaluation->id : '' }}">

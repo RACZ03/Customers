@@ -52,7 +52,7 @@ class EvaluationController extends Controller
             );
         } else {
 
-            // Method to obtain the score
+            // Method to obtain the sum of the score
             $totalScore = EvaluationDetail::CalculateScore($params_array['arrayId']);
             
             // Create object
@@ -64,14 +64,7 @@ class EvaluationController extends Controller
             $newEvaluation->status = 1;
 
             // Calculate bonus based on score
-            //     Maximum score 25 == $ 10
-            //     If it is less than 20 pts = 0;
-            if ( $totalScore < 25 && $totalScore >= 20 ) {
-                $query = Indicator::sum('score');
-                $newEvaluation->bond = ( ( 10 * $totalScore ) / $query );
-            } else {
-                $newEvaluation->bond = 0;
-            }
+            $newEvaluation->bond = EvaluationDetail::CalculateBond($totalScore);
 
             $newEvaluation->save();
             // Save evaluation details
@@ -148,14 +141,7 @@ class EvaluationController extends Controller
             $params_array['score'] = $totalScore;
             
             // Calculate bonus based on score
-            //     Maximum score 25 == $ 10
-            //     If it is less than 20 pts = 0;
-            if ( $totalScore <= 25 && $totalScore >= 20 ) {
-                $query = Indicator::sum('score');
-                $params_array['bond'] = ( ( 10 * $totalScore ) / $query );
-            } else {
-                $params_array['bond'] = 0;
-            }
+            $params_array['bond'] = EvaluationDetail::CalculateBond($totalScore);
 
             // update evaluation
             $updateEvaluation = Evaluation::where('id',$id)->update($params_array);

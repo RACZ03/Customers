@@ -71,6 +71,8 @@ class CustomerController extends Controller
         return response()->json($data, $data['code']);
     }
 
+    // Update data customer
+
     public function update($id, Request $request)
     {
         //Recoger los datos por POST
